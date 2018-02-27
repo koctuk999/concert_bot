@@ -1,6 +1,6 @@
 import bs4
 import requests
-
+import pickle
 class Artist(object):
     def __init__(self,name,date,time,price,club):
         self.name=name
@@ -44,18 +44,18 @@ def afisha_kosmonavt():
 
 
 def write_in_file(name_file, afisha):
-    f = open(name_file, 'w')
-    billboard = afisha
-    for artist in billboard:
-        f.write(artist + '\n')
+    f = open(name_file, 'wb')
+    billboard=afisha
+    pickle.dump(billboard,f)
     f.close()
 
+def read_of_file(name_file):
+    f=open(name_file,'rb')
+    return pickle.load(f)
+
+
+
 if __name__ == '__main__':
-    aurora=afisha_aurora()
-    kosmo=afisha_kosmonavt()
-    print(50*'-','\nАфиша клуба АВРОРА:\n',50*'-')
-    for artist in aurora:
-        print(artist)
-    print(50*'-','\nАфиша клуба КОСМОНАВТ:\n', 50 *'-')
-    for artist in kosmo:
+    afisha=read_of_file('aurora.txt')
+    for artist in afisha:
         print(artist)
