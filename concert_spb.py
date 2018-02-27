@@ -1,6 +1,9 @@
+#!/usr/bin/env python3
+
 import bs4
 import requests
 import pickle
+
 class Artist(object):
     def __init__(self,name,date,time,price,club):
         self.name=name
@@ -13,8 +16,7 @@ class Artist(object):
             self.name,self.date,self.time,self.price)
         return rep
 
-
-def afisha_aurora():
+def pars_aurora():
     req = requests.get("http://aurora-hall.ru/")
     b = bs4.BeautifulSoup(req.text, "html.parser")
     L = b.find_all(class_="item")
@@ -27,8 +29,7 @@ def afisha_aurora():
         afisha.append(artist)
     return afisha
 
-
-def afisha_kosmonavt():
+def pars_kosmonavt():
     req = requests.get("http://www.cosmonavt.su/?content=billboard")
     b = bs4.BeautifulSoup(req.text, "html.parser")
     L = b.find_all(class_="add_item concert")
@@ -42,7 +43,6 @@ def afisha_kosmonavt():
         afisha.append(artist)
     return afisha
 
-
 def write_in_file(name_file, afisha):
     f = open(name_file, 'wb')
     billboard=afisha
@@ -53,9 +53,5 @@ def read_of_file(name_file):
     f=open(name_file,'rb')
     return pickle.load(f)
 
-
-
 if __name__ == '__main__':
-    afisha=read_of_file('aurora.txt')
-    for artist in afisha:
-        print(artist)
+    print('this is module')
